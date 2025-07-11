@@ -1,0 +1,22 @@
+# file for setting the confiugurations of the prometheus --> send req to this url every this second
+
+global:
+  scrape_interval: 1s
+
+scrape_configs:
+  - job_name: 'gateway'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['192.168.29.196:8080']
+
+# putting ip address of own laptop because prometheus is running on the docker contianer and hence would not show all the coi nfigurations that we enabled
+#url of the machine on which promwehteus will do metrics monitoring
+
+  - job_name: 'productservice'
+    metrics_path: 'actuator/prometheus'
+scrape_interval: 5s
+
+static_configs:
+  - targets: ['localhost:3001', 'localhost:3002', 'localhost:3003', 'localhost:3004']
+
+#NOTE--> for 1 prometheus instance 1 configuration file
