@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productservicee
+  labels:
+    app:
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: productservicee
+  template:
+    metadata:
+      name: productservicee
+      labels:
+        app: productservicee
+    spec:
+      containers:
+        - name: productservicee
+          image: ayushbhardwaj611/productservice:v0.000001
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
+      

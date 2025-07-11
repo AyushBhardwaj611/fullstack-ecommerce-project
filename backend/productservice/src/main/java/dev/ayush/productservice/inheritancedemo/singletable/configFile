@@ -1,0 +1,42 @@
+package dev.ayush.productservice;
+
+import dev.ayush.productservice.inheritancedemo.singletable.Student;
+import dev.ayush.productservice.inheritancedemo.singletable.StudentRepository;
+import dev.ayush.productservice.inheritancedemo.singletable.User;
+import dev.ayush.productservice.inheritancedemo.singletable.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ProductserviceApplication implements CommandLineRunner {
+        private StudentRepository studentRepository;
+        private UserRepository userRepository;
+
+        public ProductserviceApplication(@Qualifier("st_studentRepo") StudentRepository studentRepository,
+                                         @Qualifier("st_userRepo") UserRepository userRepository) {
+            this.studentRepository = studentRepository;
+            this.userRepository = userRepository;
+        }
+    public static void main(String[] args) {
+        SpringApplication.run(ProductserviceApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        Student student = new Student();
+        student.setPsp(1234);
+        student.setBatch_name("namanbatch");
+        studentRepository.save(student);
+
+
+        User user = new User();
+        user.setName("ayush");
+        user.setEmail("something@work.com");
+        userRepository.save(user);
+    }
+}
+
+
+// config file to run in springBootApplication
