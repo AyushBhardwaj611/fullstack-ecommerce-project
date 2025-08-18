@@ -1,0 +1,49 @@
+package dev.ayush.productservice;
+
+import dev.ayush.productservice.inheritancedemo.tableperclass.Student;
+import dev.ayush.productservice.inheritancedemo.tableperclass.StudentRepository;
+import dev.ayush.productservice.inheritancedemo.tableperclass.User;
+import dev.ayush.productservice.inheritancedemo.tableperclass.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.List;
+
+@SpringBootApplication
+public class ProductserviceApplication implements CommandLineRunner {
+        private StudentRepository studentRepository;
+        private UserRepository userRepository;
+
+        public ProductserviceApplication(@Qualifier("tpc_studentRepo") StudentRepository studentRepository,
+                                         @Qualifier("tpc_userRepo") UserRepository userRepository) {
+            this.studentRepository = studentRepository;
+            this.userRepository = userRepository;
+        }
+    public static void main(String[] args) {
+        SpringApplication.run(ProductserviceApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        /*    User user = new User();
+        user.setName("aman");
+        user.setEmail("aman@gmail");
+        userRepository.save(user);   */
+
+        Student student = new Student();
+        student.setPsp(123);
+        student.setBatch_name("namanbatch");
+        student.setEmail("sdff@gmail");
+        student.setName("sumit");
+        studentRepository.save(student);
+
+        List<User> file= userRepository.findAll();
+
+        for (User u : file) {
+            System.out.println(u);
+        }
+
+    }
+}
